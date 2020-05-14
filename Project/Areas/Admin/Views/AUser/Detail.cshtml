@@ -1,0 +1,112 @@
+﻿@model Project.Models.ViewModels.UserView;
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdminIndex.cshtml";
+}
+
+
+<div class="container-fluid mt-2">
+    <section class="content-header">
+        <div class="mx-5">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Detail</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-area="admin" asp-controller="user" asp-action="index">USER</a></li>
+                        <li class="breadcrumb-item active">DETAIL</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content mx-5">
+        <form asp-controller="user" asp-area="admin" asp-action="modify" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-2 col-sm-12">
+                    <img src="~/assets/imageUser/@Model.Photo" alt="@Model.Name" id="photonow" width="250" height="250" /> <br /> <br />
+                    <input type="file" class="input-ace" id="photonew" name="photonew" onchange="change()" />
+                </div>
+
+                <div class="col-md-8 col-sm-12 offset-1">
+                    <input type="hidden" asp-for="@Model.Id" />
+                    <table style="font-size:19px">
+                        <tr>
+                            <td class="cell-user-details">Name</td>
+                            <td><input type="text" asp-for="@Model.Name" class="input-ace" /></td>
+                        </tr>
+                        <tr>
+                            <td class="cell-user-details">Email</td>
+                            <td>@Model.Email</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-user-details">Gender</td>
+                            <td>
+                                <select asp-for="Gender" class="input-ace">
+                                    <option value="0">Female</option>
+                                    <option value="1">Male</option>
+                                    <option value="2">Other</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cell-user-details">Birthday</td>
+                            <td>@Model.Birthday.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-user-details">Phone</td>
+                            <td><input type="text" asp-for="@Model.Phone" class="input-ace" /></td>
+                        </tr>
+                        <tr>
+                            <td class="cell-user-details">Address</td>
+                            <td><input type="text" asp-for="@Model.Address" class="input-ace" /></td>
+                        </tr>
+                        <tr>
+                            <td class="cell-user-details">Day Create</td>
+                            <td>@Model.DayCreate.ToString("HH:mm:ss dd/MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-user-details">Day Edited</td>
+                            <td>@Model.DayEdited.ToString("HH:mm:ss dd/MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td class="cell-user-details">Active</td>
+                            <td>
+                                <input type="checkbox" asp-for="@Model.Active" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-on="ON" data-off="OFF" data-size="mini">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cell-user-details"></td>
+                            <td>
+                                <button type="submit" class="btn btn-block btn-info"><i class="fas fa-save"></i> &nbsp;SAVE</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+@section script{
+    <script>
+        $(document).ready(function () {
+            setUpDataForm();
+        })
+
+        function setUpDataForm() {
+            switch ('@ViewBag.Result') {
+                case '200':
+                    alertSuccessNonReload();
+                    break;
+                case '500':
+                    alertError();
+                    break;
+            }
+        }
+
+        function change() {
+            $('#photonow').attr("src", URL.createObjectURL($('#photonew')[0].files[0]));
+        }
+    </script>
+}

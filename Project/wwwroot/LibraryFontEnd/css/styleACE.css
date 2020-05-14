@@ -1,0 +1,26 @@
+﻿.cell-user-details {
+    padding-right: 75px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: right;
+}
+
+.select-ace-padding {
+    padding-left: 0;
+}
+
+.input-ace {
+    width: 100%;
+}
+
+span.select2-selection.select2-selection--single {
+    height: 37px;
+}
+
+.fa-check {
+    color: lawngreen !important;
+}
+
+.fa-times {
+    color: orangered !important;
+}
