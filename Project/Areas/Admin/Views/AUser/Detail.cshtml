@@ -25,7 +25,7 @@
         <form asp-controller="user" asp-area="admin" asp-action="modify" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-2 col-sm-12">
-                    <img src="~/assets/imageUser/@Model.Photo" alt="@Model.Name" id="photonow" width="250" height="250" /> <br /> <br />
+                    <img src="~/assets/image/@Model.Photo" alt="@Model.Name" id="photonow" width="250" height="250" /> <br /> <br />
                     <input type="file" class="input-ace" id="photonew" name="photonew" onchange="change()" />
                 </div>
 

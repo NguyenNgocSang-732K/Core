@@ -6,6 +6,9 @@ using Project.Models.ViewModels;
 using Supports;
 using Microsoft.Extensions.Configuration;
 using System.Text;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -31,14 +34,19 @@ namespace Project.Areas.Admin.Controllers
         [HttpPost("login")]
         public IActionResult Login(UserView userView)
         {
-            UserView user = UserBus.LoginAdmin(userView);
-            if (user == null)
+            if (ValidateUserView(userView))
             {
-                ViewBag.Error = "ERROR: Email or password invalid";
-                return View();
+                UserView user = UserBus.LoginAdmin(userView);
+                if (user == null)
+                {
+                    ViewBag.Error = "[Email or password invalid]";
+                    return View();
+                }
+                SercurityManagerCuaSang.Login(HttpContext, user, "SCHEME_ADMIN");
+                return RedirectToAction("index", "home", new { area = "admin" });
             }
-            SercurityManagerCuaSang.Login(HttpContext, user, "SCHEME_ADMIN");
-            return RedirectToAction("index", "home", new { area = "admin" });
+            ViewBag.Error = "[Data invalid]";
+            return View();
         }
 
         [HttpGet("logout")]
@@ -72,11 +80,11 @@ namespace Project.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ViewBag.Error = "Network error please try again later";
+                    ViewBag.Error = "[Network error please try again later]";
                     return View();
                 }
             }
-            ViewBag.Error = "Email invalid. Please check again";
+            ViewBag.Error = "[Email invalid. Please check again]";
             return View();
         }
 
@@ -107,7 +115,8 @@ namespace Project.Areas.Admin.Controllers
             {
                 return Json("200");
             }
-            else { 
+            else
+            {
                 return Json("404");
             }
         }
@@ -116,6 +125,21 @@ namespace Project.Areas.Admin.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        private bool ValidateUserView(UserView userView)
+        {
+            try
+            {
+                new MailAddress(userView.Email);
+                Regex regex = new Regex(@"\w");
+                return regex.IsMatch(userView.Password);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
         }
     }
 }

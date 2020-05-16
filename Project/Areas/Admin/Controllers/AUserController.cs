@@ -110,7 +110,7 @@ namespace Project.Areas.Admin.Controllers
             string fileOld = user.Photo;
             userView.Photo = fileOld;
             if (photonew != null)
-                userView.Photo = FileCuaSang.SaveFile(webHostEnvironment, photonew, "assets/imageUser");
+                userView.Photo = FileCuaSang.SaveFile(webHostEnvironment, photonew, "assets/image");
             bool check = UserBus.Modify(userView);
             if (check)
             {
@@ -174,7 +174,7 @@ namespace Project.Areas.Admin.Controllers
             string FileNameSave = "default.jpg";
             if (inputphoto != null)
             {
-                FileNameSave = FileCuaSang.SaveFile(webHostEnvironment, inputphoto, "assets/imageUser");
+                FileNameSave = FileCuaSang.SaveFile(webHostEnvironment, inputphoto, "assets/image");
             }
             userView.Photo = FileNameSave;
             int id = 0;

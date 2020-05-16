@@ -5,13 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\User\**" />
+    <Content Remove="wwwroot\User\**" />
+    <EmbeddedResource Remove="wwwroot\User\**" />
+    <None Remove="wwwroot\User\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Views\Shared\Components\" />
     <Folder Include="wwwroot\Admin\css\" />
     <Folder Include="wwwroot\Admin\js\" />
-    <Folder Include="wwwroot\assets\image\" />
     <Folder Include="wwwroot\LibraryFontEnd\font\" />
     <Folder Include="wwwroot\LibraryFontEnd\image\" />
-    <Folder Include="wwwroot\User\" />
   </ItemGroup>
 
   <ItemGroup>

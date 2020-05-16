@@ -23,7 +23,7 @@
         <form asp-controller="user" asp-area="admin" asp-action="create" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-sm-12 col-md-2">
-                    <img width="250" height="250" id="photo" src="~/assets/imageUser/@Model.Photo" /> <br /> <br />
+                    <img width="250" height="250" id="photo" src="~/assets/image/@Model.Photo" /> <br /> <br />
                     <input type="file" class="input-ace" asp-for="Photo" id="inputphoto" name="inputphoto" onchange="change()" />
                 </div>
                 <div class="col-sm-12 col-md-9 offset-1">
