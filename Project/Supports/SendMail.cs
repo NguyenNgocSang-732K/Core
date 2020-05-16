@@ -33,6 +33,7 @@ namespace Supports
                     Host = host,
                     Port = port,
                     EnableSsl = enable,
+                    UseDefaultCredentials = true,
                     Credentials = new NetworkCredential(username, password)
                 };
                 MailMessage mailMessage = new MailMessage(username, to);
@@ -44,7 +45,7 @@ namespace Supports
                 smtpClient.Send(mailMessage);
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
